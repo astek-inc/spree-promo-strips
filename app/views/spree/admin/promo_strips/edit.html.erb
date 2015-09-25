@@ -1,0 +1,12 @@
+<% content_for :page_title do %>
+    <%= t(:edit_promo_strip) %>
+<% end %>
+
+<%= render 'spree/shared/error_messages', :target => @promo_strip %>
+
+<% #= debug @promo_strip %>
+
+<%= form_for(:promo_strip, :url => object_url, :html => { :method => :put }) do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+    <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+<% end %>

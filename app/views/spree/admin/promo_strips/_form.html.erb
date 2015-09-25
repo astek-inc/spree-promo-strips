@@ -1,0 +1,22 @@
+
+<% promo_strip_layouts = [
+        ['4 small', 1],
+        ['1 large, 2 small', 2],
+        ['2 small, 1 large', 3],
+        ['2 large', 4]
+] %>
+<%= f.field_container :promo_strip_layout_id do %>
+    <%= f.label :layout, t(:layout)%><br />
+    <%= f.select :promo_strip_layout_id, options_for_select(promo_strip_layouts, @promo_strip.promo_strip_layout_id) %>
+<% end %>
+
+<%= f.field_container :status do %>
+    <%= f.label :status, t('Active')%><br />
+    <% #= f.text_field :status %>
+    <%= f.check_box(:status) %>
+<% end %>
+
+<%= f.field_container :default do %>
+    <%= f.label :default, t(:default)%><br />
+    <%= f.check_box(:default) %>
+<% end %>

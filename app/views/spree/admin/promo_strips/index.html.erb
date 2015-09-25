@@ -1,0 +1,50 @@
+<% content_for :page_title do %>
+    <%= t(:promo_strips) %>
+<% end %>
+
+<% content_for :page_actions do %>
+    <%= button_link_to t(:new_promo_strip), new_admin_promo_strip_url, { :class => "btn-success", :icon => 'add', :id => 'admin_new_promo_strip' } %>
+<% end if can?(:create, Spree::PromoStrip) %>
+
+
+<% #= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @promo_strips } %>
+
+<% if @collection.any? %>
+    <table class="table" id="listing_promo_strips">
+      <thead>
+      <tr data-hook="admin_promo_strips_index_headers">
+        <th><%= t(:layout) %></th>
+        <th><%= t('Active') %></th>
+        <th><%= t(:default) %></th>
+        <th data-hook="admin_promo_strips_index_header_actions" class="actions"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @collection.each do |promo_strip| %>
+          <tr id="<%= spree_dom_id promo_strip %>" data-hook="admin_promo_strips_index_rows" class="<%= cycle('odd', 'even') %>">
+            <td class="layout"><%= promo_strip.promo_strip_layout_id rescue '' %></td>
+            <td class="status"><% if promo_strip.status? %><span style="color: green;">✔</span><% else %><span style="color: red;">✘</span><% end %></td>
+            <td class="default"><% if promo_strip.default? %><span style="color: green;">✔</span><% else %><span style="color: red;">✘</span><% end %></td>
+            <td class="actions actions-3 text-right" data-hook="admin_promo_strips_index_row_actions">
+              <%= link_to_edit promo_strip, no_text: true, class: 'edit' if can?(:edit, promo_strip) %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% else %>
+    <div class="alert alert-info no-objects-found">
+      <%= Spree.t(:no_resource_found, resource: t(:promo_strips)) %>,
+      <%= link_to Spree.t(:add_one), new_object_url %>!
+    </div>
+<% end %>
+
+<% #= debug @collection %>
+
+<% #= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>
+
+
+<% #@promo_strips.each do |promo_strip| %>
+  <% #= debug promo_strip %>
+<% #end %>
+

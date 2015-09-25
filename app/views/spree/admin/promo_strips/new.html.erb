@@ -1,0 +1,10 @@
+<% content_for :page_title do %>
+    <%= t(:new_promo_strip) %>
+<% end %>
+
+<%= render 'spree/shared/error_messages', :target => @promo_strip %>
+
+<%= form_for(:promo_strip, :url => admin_promo_strips_url) do |f| %>
+    <%= render :partial => "form", :locals => { :f => f } %>
+    <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+<% end %>

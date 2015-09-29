@@ -1,18 +1,10 @@
-
-<% promo_strip_layouts = [
-        ['4 small', 1],
-        ['1 large, 2 small', 2],
-        ['2 small, 1 large', 3],
-        ['2 large', 4]
-] %>
 <%= f.field_container :promo_strip_layout_id do %>
     <%= f.label :layout, t(:layout)%><br />
-    <%= f.select :promo_strip_layout_id, options_for_select(promo_strip_layouts, @promo_strip.promo_strip_layout_id) %>
+    <%= f.select :promo_strip_layout_id, @promo_strip_layouts.collect {|l| [l.name, l.id]} %>
 <% end %>
 
 <%= f.field_container :status do %>
-    <%= f.label :status, t('Active')%><br />
-    <% #= f.text_field :status %>
+    <%= f.label :status, t(:active)%><br />
     <%= f.check_box(:status) %>
 <% end %>
 
@@ -20,3 +12,187 @@
     <%= f.label :default, t(:default)%><br />
     <%= f.check_box(:default) %>
 <% end %>
+
+<div id="promo-strip-layouts">
+  <p>Promo Strip Items</p>
+
+  <% if @promo_strip.promo_strip_layout_id.nil? %>
+      <% @promo_strip.promo_strip_layout_id = 1 %>
+  <% end %>
+
+  <% @display_items = [] %>
+  <% @promo_strip.promo_strip_items.each do |item| %>
+      <% @display_items[item.position] = item %>
+  <% end %>
+
+  <!-- 4 small -->
+  <div class="promo-strip-layout" id="promo-strip-layout-1"<% if @promo_strip.promo_strip_layout_id != 1 %> style="display: none;"<% end %>>
+    <p>4 small images</p>
+
+    <% @fields_disabled = false %>
+    <% if @promo_strip.promo_strip_layout_id != 1 %>
+        <% @fields_disabled = true %>
+    <% end %>
+
+    <% for i in 1..4 %>
+        <div class="promo-strip-item">
+          <div class="field" id="promo_strip_image_field_<%= i %>">
+            <% if @promo_strip.promo_strip_layout_id == 1 && !@display_items[i].nil? %>
+                <img src="<%= @display_items[i].image %>">
+            <% end %>
+            <%= label :image, t(:image) %><br />
+            <%= file_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :image, :disabled => @fields_disabled %>
+          </div>
+
+          <div class="field" id="promo_strip_link_field_<%= i %>">
+            <%= label :link, t(:link) %><br />
+            <% value = nil %>
+            <% if @promo_strip.promo_strip_layout_id == 1 && !@display_items[i].nil? %>
+                <% value = @display_items[i].link %>
+            <% end %>
+            <%= text_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :link, :value => value, :disabled => @fields_disabled %>
+          </div>
+
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :position, :value => i, :disabled => @fields_disabled %>
+
+          <% value = nil %>
+          <% if @promo_strip.promo_strip_layout_id == 1 && !@display_items[i].nil? %>
+              <% value = @display_items[i].id %>
+          <% end %>
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :id, :value => value , :disabled => @fields_disabled %>
+        </div>
+    <% end %>
+
+  </div>
+
+  <!--1 large, 2 small-->
+  <div class="promo-strip-layout" id="promo-strip-layout-2"<% if @promo_strip.promo_strip_layout_id != 2 %> style="display: none;"<% end %>>
+    <p>1 large image, 2 small</p>
+
+    <% @fields_disabled = false %>
+    <% if @promo_strip.promo_strip_layout_id != 2 %>
+        <% @fields_disabled = true %>
+    <% end %>
+
+    <% for i in 1..3 %>
+        <div class="promo-strip-item">
+          <div class="field" id="promo_strip_image_field_<%= i %>_layout_2">
+            <% if @promo_strip.promo_strip_layout_id == 2 && !@display_items[i].nil? %>
+                <img src="<%= @display_items[i].image %>">
+            <% end %>
+            <%= label :image, t(:image) %><br />
+            <%= file_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :image, :disabled => @fields_disabled %>
+          </div>
+
+          <div class="field" id="promo_strip_link_field_<%= i %>_layout_2">
+            <%= label :link, t(:link) %><br />
+            <% value = nil %>
+            <% if @promo_strip.promo_strip_layout_id == 2 && !@display_items[i].nil? %>
+                <% value = @display_items[i].link %>
+            <% end %>
+            <%= text_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :link, :value => value, :disabled => @fields_disabled %>
+          </div>
+
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :position, :value => i, :disabled => @fields_disabled %>
+
+          <% value = nil %>
+          <% if @promo_strip.promo_strip_layout_id == 2 && !@display_items[i].nil? %>
+              <% value = @display_items[i].id %>
+          <% end %>
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :id, :value => value , :disabled => @fields_disabled %>
+        </div>
+    <% end %>
+
+  </div>
+
+  <!--2 small, 1 large-->
+  <div class="promo-strip-layout" id="promo-strip-layout-3"<% if @promo_strip.promo_strip_layout_id != 3 %> style="display: none;"<% end %>>
+    <p>2 small images, 1 large</p>
+
+    <% @fields_disabled = false %>
+    <% if @promo_strip.promo_strip_layout_id != 3 %>
+        <% @fields_disabled = true %>
+    <% end %>
+
+    <% for i in 1..3 %>
+        <div class="promo-strip-item">
+          <div class="field" id="promo_strip_image_field_<%= i %>_layout_3">
+            <% if @promo_strip.promo_strip_layout_id == 3 && !@display_items[i].nil? %>
+                <img src="<%= @display_items[i].image %>">
+            <% end %>
+            <%= label :image, t(:image) %><br />
+            <%= file_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :image, :disabled => @fields_disabled %>
+          </div>
+
+          <div class="field" id="promo_strip_link_field_<%= i %>_layout_3">
+            <%= label :link, t(:link) %><br />
+            <% value = nil %>
+            <% if @promo_strip.promo_strip_layout_id == 3 && !@display_items[i].nil? %>
+                <% value = @display_items[i].link %>
+            <% end %>
+            <%= text_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :link, :value => value, :disabled => @fields_disabled %>
+          </div>
+
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :position, :value => i, :disabled => @fields_disabled %>
+
+          <% value = nil %>
+          <% if @promo_strip.promo_strip_layout_id == 3 && !@display_items[i].nil? %>
+              <% value = @display_items[i].id %>
+          <% end %>
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :id, :value => value , :disabled => @fields_disabled %>
+        </div>
+    <% end %>
+  </div>
+
+  <!--2 large-->
+  <div class="promo-strip-layout" id="promo-strip-layout-4"<% if @promo_strip.promo_strip_layout_id != 4 %> style="display: none;"<% end %>>
+    <p>2 large images</p>
+
+    <% @fields_disabled = false %>
+    <% if @promo_strip.promo_strip_layout_id != 4 %>
+        <% @fields_disabled = true %>
+    <% end %>
+
+    <% for i in 1..2 %>
+        <div class="promo-strip-item">
+          <div class="field" id="promo_strip_image_field_<%= i %>_layout_4">
+            <% if @promo_strip.promo_strip_layout_id == 4 && !@display_items[i].nil? %>
+                <img src="<%= @display_items[i].image %>">
+            <% end %>
+            <%= label :image, t(:image) %><br />
+            <%= file_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :image, :disabled => @fields_disabled %>
+          </div>
+
+          <div class="field" id="promo_strip_link_field_<%= i %>_layout_4">
+            <%= label :link, t(:link) %><br />
+            <% value = nil %>
+            <% if @promo_strip.promo_strip_layout_id == 4 && !@display_items[i].nil? %>
+                <% value = @display_items[i].link %>
+            <% end %>
+            <%= text_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :link, :value => value, :disabled => @fields_disabled %>
+          </div>
+
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :position, :value => i, :disabled => @fields_disabled %>
+
+          <% value = nil %>
+          <% if @promo_strip.promo_strip_layout_id == 4 && !@display_items[i].nil? %>
+              <% value = @display_items[i].id %>
+          <% end %>
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :id, :value => value , :disabled => @fields_disabled %>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+      $('#promo_strip_promo_strip_layout_id').change(function(){
+          $('.promo-strip-layout').hide();
+          $('.promo-strip-layout input').attr('disabled', true);
+
+          target_id = '#promo-strip-layout-' + $(this).val();
+          $(target_id).show();
+          $(target_id + ' input').attr('disabled', false);
+      });
+  });
+</script>

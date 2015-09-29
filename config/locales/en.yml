@@ -2,4 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+
+  promo_strips: 'Promo Strips'
+  promo_strip: 'Promo Strip'
+  new_promo_strip: 'New Promo Strip'
+  edit_promo_strip: 'Edit Promo Strip'
+  layout: 'Layout'
+  status: 'Status'
+  active: 'Active'
+  default: 'Default'
+  image: 'Image'
+  link: 'Link'

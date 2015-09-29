@@ -22,7 +22,7 @@
       <tbody>
       <% @collection.each do |promo_strip| %>
           <tr id="<%= spree_dom_id promo_strip %>" data-hook="admin_promo_strips_index_rows" class="<%= cycle('odd', 'even') %>">
-            <td class="layout"><%= promo_strip.promo_strip_layout_id rescue '' %></td>
+            <td class="layout"><%= promo_strip.promo_strip_layout.name %></td>
             <td class="status"><% if promo_strip.status? %><span style="color: green;">✔</span><% else %><span style="color: red;">✘</span><% end %></td>
             <td class="default"><% if promo_strip.default? %><span style="color: green;">✔</span><% else %><span style="color: red;">✘</span><% end %></td>
             <td class="actions actions-3 text-right" data-hook="admin_promo_strips_index_row_actions">
@@ -39,12 +39,9 @@
     </div>
 <% end %>
 
-<% #= debug @collection %>
-
 <% #= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>
 
-
-<% #@promo_strips.each do |promo_strip| %>
-  <% #= debug promo_strip %>
-<% #end %>
+<% # @collection.each do |promo_strip| %>
+  <% #= debug promo_strip.promo_strip_layout %>
+<% # end %>
 

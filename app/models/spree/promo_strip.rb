@@ -4,9 +4,9 @@ module Spree
     self.table_name = 'promo_strips'
 
     belongs_to :promo_strip_layout
-    has_many :promo_strip_items
+    has_many :promo_strip_items, autosave: :true
 
-    validates_presence_of :promo_strip_layout_id, :status, :default
+    validates_presence_of :promo_strip_layout_id #, :status, :default
 
     accepts_nested_attributes_for :promo_strip_items
 

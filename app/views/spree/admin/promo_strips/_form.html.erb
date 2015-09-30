@@ -60,6 +60,7 @@
               <% value = @display_items[i].id %>
           <% end %>
           <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :id, :value => value , :disabled => @fields_disabled %>
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :size, :value => 'small', :disabled => @fields_disabled %>
         </div>
     <% end %>
 
@@ -100,6 +101,14 @@
               <% value = @display_items[i].id %>
           <% end %>
           <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :id, :value => value , :disabled => @fields_disabled %>
+
+          <% case i %>
+            <% when 1 %>
+              <% value = 'large' %>
+            <% else %>
+              <% value = 'small' %>
+          <% end %>
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :size, :value => value, :disabled => @fields_disabled %>
         </div>
     <% end %>
 
@@ -140,6 +149,14 @@
               <% value = @display_items[i].id %>
           <% end %>
           <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :id, :value => value , :disabled => @fields_disabled %>
+
+          <% case i %>
+            <% when 3 %>
+              <% value = 'large' %>
+            <% else %>
+              <% value = 'small' %>
+          <% end %>
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :size, :value => value, :disabled => @fields_disabled %>
         </div>
     <% end %>
   </div>
@@ -179,6 +196,7 @@
               <% value = @display_items[i].id %>
           <% end %>
           <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :id, :value => value , :disabled => @fields_disabled %>
+          <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :size, :value => 'large', :disabled => @fields_disabled %>
         </div>
     <% end %>
   </div>

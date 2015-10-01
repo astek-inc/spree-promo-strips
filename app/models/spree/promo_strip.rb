@@ -5,6 +5,7 @@ module Spree
 
     belongs_to :promo_strip_layout
     has_many :promo_strip_items
+    has_and_belongs_to_many :taxons
 
     validates_presence_of :promo_strip_layout_id #, :status, :default
 

@@ -4,17 +4,8 @@ module Spree
 
       before_action :get_layouts #, only: [:new, :edit]
       before_action :destroy_items_on_new_layout, only: :update
+      before_action :reset_default, only: [:create, :update]
       before_action :set_taxon_params, only: [:create, :update]
-
-      # def edit
-      #   strip = Spree::PromoStrip.find(params[:id])
-      #   @tmp = strip.promo_strip_items
-      #   render('debug')
-      # end
-      # def update
-      #   #@tmp = params
-      #   render('debug')
-      # end
 
       private
 
@@ -30,6 +21,17 @@ module Spree
           @promo_strip_layouts = Spree::PromoStripLayout.all
         end
 
+        # If the current promo strip has its default flag set to true, unset the
+        # default flag on any promo strip which currently has it set to true.
+        def reset_default
+          if params[:promo_strip][:default]
+            Spree::PromoStrip.all.where(:default => true).each do |promo_strip|
+              promo_strip.default = false
+              promo_strip.save
+            end
+          end
+        end
+
         # Remove the old associated items from the database and delete the
         # attached images if we're changing the layout.
         def destroy_items_on_new_layout
@@ -40,13 +42,14 @@ module Spree
               item.save
               item.destroy
             end
-            #Spree::PromoStripItem.where(:promo_strip_id => params[:id]).destroy_all
           end
         end
 
         def set_taxon_params
           if params[:promo_strip][:taxon_ids].present?
             params[:promo_strip][:taxon_ids] = params[:promo_strip][:taxon_ids].split(',')
+          else
+            params[:promo_strip][:taxon_ids] = []
           end
         end
 

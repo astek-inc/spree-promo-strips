@@ -1,0 +1,17 @@
+<% unless @promo_strip.nil? %>
+    <% @promo_strip.promo_strip_items.each_with_index do |item, index| %>
+        <% image_size = @promo_strip_item_sizes[index] %>
+        <% case image_size %>
+            <% when 'large' %>
+                <% class_value = 'col-md-6 col-sm-12' %>
+            <% when 'small' %>
+                <% class_value = 'col-md-3 col-xs-6' %>
+            <% end %>
+
+        <div class="<%= class_value %>">
+          <a href="<%= item.link %>">
+            <%= image_tag item.image.url(image_size), :class => 'img-responsive' %>
+          </a>
+        </div>
+    <% end %>
+<% end %>

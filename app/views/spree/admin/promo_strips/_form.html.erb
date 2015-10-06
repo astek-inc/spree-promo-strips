@@ -1,20 +1,22 @@
-<%= f.field_container :promo_strip_layout_id do %>
-    <%= f.label :layout, t(:layout)%><br />
+<div class="row">
+  <%= f.field_container :promo_strip_layout_id, :class => ['col-md-2', 'col-xs-4'] do %>
+    <%= f.label :layout, t(:layout)%>
     <%= f.select :promo_strip_layout_id, @promo_strip_layouts.collect {|l| [l.name, l.id]} %>
-<% end %>
+    <% end %>
 
-<%= f.field_container :status do %>
-    <%= f.label :status, t(:active)%><br />
-    <%= f.check_box(:status) %>
-<% end %>
+    <%= f.field_container :status, :class => ['col-md-1', 'col-xs-2'] do %>
+        <%= f.label :status, t(:active)%>
+        <%= f.check_box(:status) %>
+    <% end %>
 
-<%= f.field_container :default do %>
-    <%= f.label :default, t(:default)%><br />
-    <%= f.check_box(:default) %>
-<% end %>
+    <%= f.field_container :default, :class => ['col-md-1', 'col-xs-2'] do %>
+        <%= f.label :default, t(:default)%>
+        <%= f.check_box(:default) %>
+    <% end %>
+</div>
 
-<div id="promo-strip-layouts">
-  <p>Promo Strip Items</p>
+<div id="promo-strip-layouts" class="row">
+  <h2 style="font-size: 18px; margin-left: 15px;">Promo Strip Items</h2>
 
   <% if @promo_strip.promo_strip_layout_id.nil? %>
       <% @promo_strip.promo_strip_layout_id = 1 %>
@@ -38,7 +40,7 @@
   <% end %>
 </div>
 
-<div data-hook="admin_promo_strip_form_taxons">
+<div data-hook="admin_promo_strip_form_taxons" class="row">
   <%= f.field_container :taxons, class: ['form-group'] do %>
       <%= f.label :taxon_ids, Spree.t(:taxons) %>
 

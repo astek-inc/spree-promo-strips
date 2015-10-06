@@ -3,19 +3,21 @@
     <%= label :image, t(:image) %><br />
     <% if @promo_strip.promo_strip_layout_id == promo_strip_layout_id && !@display_items[i].nil? %>
         <div style="margin-bottom: 10px">
-          <%= image_tag @display_items[i].image.url(:standard), :style => 'width:100%' %>
+          <%= image_tag @display_items[i].image.url(image_size), :style => 'width:100%' %>
         </div>
     <% end %>
-    <%= file_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :image, :disabled => fields_disabled %>
+    <div class="field" id="promo_strip_file_field_<%= i %>_layout_<%= promo_strip_layout_id %>" style="margin-bottom: 10px">
+        <%= file_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :image, :disabled => fields_disabled %>
+    </div>
   </div>
 
   <div class="field" id="promo_strip_link_field_<%= i %>_layout_<%= promo_strip_layout_id %>">
-    <%= label :link, t(:link) %><br />
+    <%= label :link, t(:link) %>
     <% value = nil %>
     <% if @promo_strip.promo_strip_layout_id == promo_strip_layout_id && !@display_items[i].nil? %>
         <% value = @display_items[i].link %>
     <% end %>
-    <%= text_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :link, :value => value, :disabled => fields_disabled %>
+    <%= text_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :link, :value => value, :disabled => fields_disabled, :style => 'width: 80%' %>
   </div>
 
   <%= hidden_field 'promo_strip[promo_strip_items_attributes][' + i.to_s + ']', :position, :value => i, :disabled => fields_disabled %>

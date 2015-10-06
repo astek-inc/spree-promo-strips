@@ -11,7 +11,7 @@ module Spree
 
         def permitted_resource_params
           params.require(:promo_strip).
-              permit(:id, :promo_strip_layout_id, :status, :default,
+              permit(:id, :description, :promo_strip_layout_id, :status, :default,
                      :taxon_ids => [],
                      promo_strip_items_attributes: [:id, :link, :position, :image, :size]
               )
@@ -24,7 +24,7 @@ module Spree
         # If the current promo strip has its default flag set to true, unset the
         # default flag on any promo strip which currently has it set to true.
         def reset_default
-          if params[:promo_strip][:default]
+          if params[:promo_strip][:default] == true
             Spree::PromoStrip.all.where(:default => true).each do |promo_strip|
               promo_strip.default = false
               promo_strip.save

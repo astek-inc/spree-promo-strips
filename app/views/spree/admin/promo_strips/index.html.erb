@@ -13,8 +13,10 @@
     <table class="table" id="listing_promo_strips">
       <thead>
       <tr data-hook="admin_promo_strips_index_headers">
+        <th><%= t(:id) %></th>
+        <th><%= t(:description) %></th>
         <th><%= t(:layout) %></th>
-        <th><%= t('Active') %></th>
+        <th><%= t(:active) %></th>
         <th><%= t(:default) %></th>
         <th data-hook="admin_promo_strips_index_header_actions" class="actions"></th>
       </tr>
@@ -22,6 +24,8 @@
       <tbody>
       <% @collection.each do |promo_strip| %>
           <tr id="<%= spree_dom_id promo_strip %>" data-hook="admin_promo_strips_index_rows" class="<%= cycle('odd', 'even') %>">
+            <td class="id"><%= promo_strip.id %></td>
+            <td class="description"><%= promo_strip.description %></td>
             <td class="layout"><%= promo_strip.promo_strip_layout.name %></td>
             <td class="status"><% if promo_strip.status? %><span style="color: green;">✔</span><% else %><span style="color: red;">✘</span><% end %></td>
             <td class="default"><% if promo_strip.default? %><span style="color: green;">✔</span><% else %><span style="color: red;">✘</span><% end %></td>

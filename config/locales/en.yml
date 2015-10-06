@@ -7,6 +7,7 @@ en:
   promo_strip: 'Promo Strip'
   new_promo_strip: 'New Promo Strip'
   edit_promo_strip: 'Edit Promo Strip'
+  description: 'Description'
   layout: 'Layout'
   status: 'Status'
   active: 'Active'

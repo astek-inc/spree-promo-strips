@@ -14,5 +14,7 @@ module Spree
     has_attached_file :image, styles: {large: '1250x450!', small: '590x450!'}
     validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
+    default_scope {order('position ASC')}
+
   end
 end

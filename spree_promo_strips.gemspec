@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_promo_strips'
-  s.version     = '3.0.2'
+  s.version     = '3.0.3'
   s.summary     = 'Create a configurable set of images and links'
   s.description = 'Create a configurable set of images and links'
   s.required_ruby_version = '>= 2.0.0'

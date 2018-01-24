@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_promo_strips'
-  s.version     = '3.1.2'
+  s.version     = '3.1.3'
   s.summary     = 'Create a configurable set of images and links'
   s.description = 'Create a configurable set of images and links'
   s.required_ruby_version = '>= 2.0.0'
@@ -16,10 +16,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 3.0.0'
-  s.add_dependency 'spree_frontend', '~> 3.0.0'
-  s.add_dependency 'spree_backend', '~> 3.0.0'
-  s.add_dependency 'paperclip', '~> 4.2'
+  s.add_dependency 'spree_core', '~> 3.0.2'
 
   s.add_development_dependency 'capybara', '~> 2.4'
   s.add_development_dependency 'coffee-rails'
